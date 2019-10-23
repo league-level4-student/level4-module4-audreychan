@@ -14,9 +14,8 @@ public class Hospital {
 		return doctors;
 	}
 	
-	void addPatient(Patient p) {
+	void addPatient(Patient p){
 		patients.add(p);
-		doctors.get((patients.size()-1)%3);
 	}
 	ArrayList<Patient> getPatients(){
 		return patients;
@@ -24,5 +23,17 @@ public class Hospital {
 	
 	void assignPatientsToDoctors() {
 		
+		for(int i = 0; i < doctors.size(); i ++) {
+			for(int j = 0; j < 3; j++) {
+				try {
+					if(i*3+j < patients.size())doctors.get(i).assignPatient(patients.get(i*3+j));
+					else break;
+					System.out.println("patient " + (i*3+j) + " assigned to doctor " + i);
+				} catch (DoctorFullException e) { 
+					System.out.println("error");
+					break;
+				}
+			}
+		}
 	}
 }
